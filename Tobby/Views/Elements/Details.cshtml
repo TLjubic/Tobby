@@ -1,0 +1,134 @@
+﻿@model Tobby.Models.Element
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<head>
+    <style>
+
+        @@import url('https://fonts.googleapis.com/css2?family=@ViewBag.ImportFont&display=swap');
+        @ViewBag.GlobalStyle
+
+        @Html.Raw(Model?.Css)
+
+        .raw-bg {
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Display element -->
+@Html.Raw(Model?.Html)
+
+<div class="window-wrapper">
+    <div class="window">
+
+        <div>
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.ID)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.ID)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.ElementType)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.ElementType)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Category)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Category)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Theme)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Theme)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.ShapeDesign)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.ShapeDesign)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.SectionDescription)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.SectionDescription)
+                </dd>
+            </dl>
+        </div>
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+        <hr /><br />
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+</div>
+
+
+
+    <script>
+
+        window.addEventListener("load", getImage);
+
+        //Get all images from template
+        async function getImage() {
+            var images = document.querySelectorAll(".loadImg img");
+
+            for(let i = 0; i < images.length; i++) {
+                let category = images[i].alt;
+                //Set source - url for image
+                images[i].src = await loadImages(category);
+            }
+        }
+        
+        //API call
+        async function loadImages(category) {
+            const url = 'https://api.unsplash.com/search/photos/?query='+ category +'&per_page=20&client_id=5VrlaEKeKL-YVATlvghUrYZOwLBIZpJmjO_tiynY2-0';
+            
+            return fetch(url) 
+            .then(response =>{
+                if(response.ok) {
+                    console.log(response);
+                    return response.json();
+                }
+                else {
+                    console.log(response.status);
+                }
+            }) 
+            .then(data =>{
+                //Pick random number for image pool
+                let randomNumber = Math.floor(Math.random() * 20);
+                console.log(category);
+                //Return url from a random image
+                return data.results[randomNumber].urls.regular;
+            })
+        }
+
+    </script>
+
+</body>

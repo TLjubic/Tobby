@@ -1,0 +1,149 @@
+﻿@using Tobby.Data.Enum
+@model Tobby.Models.Element
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="model-wrapper-create">
+    <div class="model-window-create">
+        <div class="window-wrapper-create">
+
+        <h1>Edit</h1>
+
+        <h4>Element</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="ID" />
+
+
+                    <!-- Title text input -->
+                        <div class="form-group">
+                            <label asp-for="Title" class="control-label"></label>
+                            <input asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+
+                        <!-- Css text input -->
+                        <!--
+                        <div class="form-group">
+                            <label asp-for="Css" class="control-label"></label>
+                            <input asp-for="Css" class="form-control" />
+                            <span asp-validation-for="Css" class="text-danger"></span>
+                        </div>
+                        -->
+                        <div class="form-group floating textarea-css">
+                            <label asp-for="Css" class="control-label"></label>
+                            <textarea asp-for="Css" class="form-control"></textarea>
+                            <span asp-validation-for="Css" class="text-danger"></span>
+                        </div>
+                        
+
+                        <!-- Html text input -->
+                        <!--
+                            <div class="form-group">
+                            <label asp-for="Html" class="control-label"></label>
+                            <input asp-for="Html" class="form-control" />
+                            <span asp-validation-for="Html" class="text-danger"></span>
+                        </div>
+                        -->
+                        <div class="form-group floating textarea-html">
+                            <label asp-for="Html" class="control-label"></label>
+                            <textarea asp-for="Html" class="form-control"></textarea>
+                            <span asp-validation-for="Html" class="text-danger"></span>
+                        </div>
+
+                        <!-- Floating element checkbox -->
+                        <div class="form-group form-check input-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" asp-for="FloatingElement" /> @Html.DisplayNameFor(model => model.FloatingElement)
+                            </label>
+                        </div>
+
+                        <!-- Color text input -->
+                        <!--
+                        <div class="form-group">
+                            <label asp-for="Color" class="control-label"></label>
+                            <input asp-for="Color" class="form-control" />
+                            <span asp-validation-for="Color" class="text-danger"></span>
+                        </div>
+                        -->
+
+                        <!-- Shadow property checkbox -->
+                        <div class="form-group form-check input-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" asp-for="ShadowProperty" /> @Html.DisplayNameFor(model => model.ShadowProperty)
+                            </label>
+                        </div>
+
+                        <div class="input-wrapper-select">
+
+                        <!-- Element type select options -->
+                        <div class="form-group input-select">
+                            <label asp-for="ElementType" class="control-label"></label>
+                            <select asp-for="ElementType" class="form-control" asp-items="@Html.GetEnumSelectList<ElementType>()">
+                                <option>--Select--</option>
+                            </select>
+                            <span asp-validation-for="ElementType" class="text-danger"></span>
+                        </div>
+
+                        <!-- Category select options -->
+                        <div class="form-group input-select">
+                            <label asp-for="Category" class="control-label"></label>
+                            <select asp-for="Category" class="form-control" asp-items="@Html.GetEnumSelectList<Category>()">
+                                <option>--Select--</option>
+                            </select>
+                            <span asp-validation-for="Category" class="text-danger"></span>
+                        </div>
+
+                        <!-- Theme select options -->
+                        <div class="form-group input-select">
+                            <label asp-for="Theme" class="control-label"></label>
+                            <select asp-for="Theme" class="form-control" asp-items="@Html.GetEnumSelectList<Theme>()">
+                                <option>--Select--</option>
+                            </select>
+                            <span asp-validation-for="Theme" class="text-danger"></span>
+                        </div>
+
+                        <!-- Shape design select options -->
+                        <div class="form-group input-select">
+                            <label asp-for="ShapeDesign" class="control-label"></label>
+                            <select asp-for="ShapeDesign" class="form-control" asp-items="@Html.GetEnumSelectList<ShapeDesign>()">
+                                <option>--Select--</option>
+                            </select>
+                            <span asp-validation-for="ShapeDesign" class="text-danger"></span>
+                        </div>
+
+                        <!-- Section description select options -->
+                        <div class="form-group input-select">
+                            <label asp-for="SectionDescription" class="control-label"></label>
+                            <select asp-for="SectionDescription" class="form-control" asp-items="@Html.GetEnumSelectList<SectionDescription>()">
+                                <option>--Select--</option>
+                            </select>
+                            <span asp-validation-for="SectionDescription" class="text-danger"></span>
+                        </div>
+
+                        </div>
+                        
+                        
+                        <div class="form-group input-submit">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                </form>
+               
+            </div>
+        </div>
+
+        <div class="model-description">
+        </div>
+    </div>
+</div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,88 @@
+﻿@model Tobby.Models.ViewModels.TemplateExampleViewModel
+
+@{
+    ViewData["Title"] = "Elements";
+}
+
+@ViewBag.NewHtml
+
+<html>
+<head>
+    <style>
+        
+        @@import url('https://fonts.googleapis.com/css2?family=@ViewBag.ImportFont&display=swap');
+        @ViewBag.GlobalStyle
+
+        @Html.Raw(Model.Header.Css)
+        @Html.Raw(Model.Intro.Css)
+
+        @foreach(var item in Model.Sections) {
+            @Html.Raw(item.Css)
+        }
+
+        @Html.Raw(Model.Footer.Css)
+
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="wrapper-in">
+
+            @Html.Raw(Model.Header.Html)
+            @Html.Raw(Model.Intro.Html)
+
+            @foreach (var item in Model.Sections)
+            {
+                @Html.Raw(item.Html)
+            }
+
+            @Html.Raw(Model.Footer.Html)
+
+        </div>
+    </div>
+
+
+    <script>
+
+        window.addEventListener("load", getImage);
+        
+        async function loadImages(category) {
+            const url = 'https://api.unsplash.com/search/photos/?query='+ category +'&per_page=20&client_id=5VrlaEKeKL-YVATlvghUrYZOwLBIZpJmjO_tiynY2-0';
+            //const url2 = 'https://api.unsplash.com/photos/random/?Pasta&client_id=5VrlaEKeKL-YVATlvghUrYZOwLBIZpJmjO_tiynY2-0';
+
+            return fetch(url) 
+
+            .then(response =>{
+                if(response.ok) {
+                    console.log(response);
+                    return response.json();
+                }
+                else {
+                    console.log(response.status);
+                }
+            }) 
+
+            .then(data =>{
+                //for(let i = 0; i < 3; i++) {
+                    let randomNumber = Math.floor(Math.random() * 20);
+                    //images[i].src = data.results[randomNumber].urls.regular;
+                    console.log(category);
+                    return data.results[randomNumber].urls.regular;
+                //}
+            })
+        }
+
+        async function getImage() {
+            var images = document.querySelectorAll(".loadImg img");
+
+            for(let i = 0; i < images.length; i++) {
+                let category = images[i].alt;
+                images[i].src = await loadImages(category);
+            }
+        }
+
+    </script>
+
+</body>
+</html>
+

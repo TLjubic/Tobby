@@ -1,0 +1,101 @@
+﻿@using Tobby.Data.Enum
+@model Tobby.Models.ViewModels.TemplateRequirementsViewModel
+
+@{
+    ViewData["Title"] = "Template";
+}
+<div class="model-wrapper">
+<div class="model-window">
+    <div class="window-wrapper">
+
+        <h3>New template</h3>
+        <p class="info">Choose your preferences and build unique template.</p>
+        <!--
+        <p>
+            <a asp-action="NewTemplate">Try new template</a>
+        </p>
+        -->
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="NewTemplate">
+                    <div class="form-group">
+                        <label asp-for="Category" class="control-label"></label>
+                        <select asp-for="Category" class="form-control" asp-items="@Html.GetEnumSelectList<Category>()">
+                            <option>-- Select category --</option>
+                        </select>
+                        <span asp-validation-for="Category" class="text-danger"></span>
+                    </div>
+
+                    <div class="input-wrapper">
+                        <!-- Font input -->
+                        <div class="form-group font-input">
+                            <label asp-for="Font" class="control-label"></label>
+                            <select asp-for="Font" class="form-control" asp-items="@Html.GetEnumSelectList<Font>()">
+                                <option>-- Select font --</option>
+                            </select>
+                            <span asp-validation-for="Font" class="text-danger"></span>
+                        </div>
+
+                        <!-- Color input -->
+                        <div class="form-group color-input">
+                            <label asp-for="Color" class="control-label"></label>
+                            <input asp-for="Color" class="form-control" type="color" />
+                            <span asp-validation-for="Color" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <!-- Sections number input -->
+                    <div class="form-group section-input">
+                        <label asp-for="NumberOfSections" class="control-label"></label>
+                        <input asp-for="NumberOfSections" class="form-control" type="number" placeholder="Choose number"/>
+                        <span asp-validation-for="NumberOfSections" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Create template" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="model-description">
+
+    <div class="step-row">
+        <div class="step-image"><img src="https://res.cloudinary.com/dv4hjzpoo/image/upload/v1681574831/category_rlmycq.png" /></div>
+        <div class="step-info">
+            <h6>1. Step</h6>
+            <h4>Category</h4>
+                <p>Select the category from which you want to get the new generated template.</p>
+        </div>
+    </div>
+    <div class="step-row">
+            <div class="step-image"><img src="https://res.cloudinary.com/dv4hjzpoo/image/upload/v1681574831/text-size_ncbfzs.png" /></div>
+        <div class="step-info">
+            <h6>2. Step</h6>
+            <h4>Global style</h4>
+                <p>Set the custom font and color to be used.</p>
+        </div>
+    </div>
+    <div class="step-row">
+            <div class="step-image"><img src="https://res.cloudinary.com/dv4hjzpoo/image/upload/v1681575295/integration_s5l8yy.png" /></div>
+        <div class="step-info">
+            <h6>3. Step</h6>
+            <h4>Number of sections</h4>
+                <p>Set the number of sections the generated template should have.</p>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+<!--
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+-->
